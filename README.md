@@ -127,11 +127,8 @@ export API_BASE_URL=http://localhost:8000
 
 ## AI Tools Usage Disclosure
 
-Claude (Anthropic) was used to help scaffold this project — boilerplate
-FastAPI/Streamlit structure, regex pattern drafting for detectors, and
-Dockerfile templates. I reviewed, tested, and understand every part of the
-code, including the detection logic, scoring/threshold design, and API
-contract, and can explain and modify any part of it.
+I used Claude AI for initial code scaffolding - FastAPI endpoints, detector regex patterns, Streamlit UI, and test boilerplate. I personally handled the full local environment setup, WSL2/Docker troubleshooting on Windows, end-to-end testing of the API/UI/CLI/tests, and the Git/GitHub setup. I understand the detection logic, scoring design, and API contract and can explain or modify any part of it.
+
 
 ---
 
