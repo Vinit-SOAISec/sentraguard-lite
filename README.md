@@ -1,5 +1,12 @@
 # SentraGuard Lite — Guardrails Gateway Mini
 
+## 🔗 Live Demo
+
+- **UI:** https://sentraguard-lite.streamlit.app
+- **API Docs:** https://sentraguard-lite-api.onrender.com
+
+> Note: Free-tier hosting — first request may take 30-50 seconds to wake up if inactive.
+
 ## Project Summary
 
 SentraGuard Lite is a minimal GenAI guardrails gateway. It analyzes an
