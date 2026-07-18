@@ -9,6 +9,7 @@ No health endpoint added on purpose (spec says avoid extra APIs).
 """
 import logging
 from fastapi import FastAPI
+from fastapi.responses import RedirectResponse
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 
@@ -55,3 +56,8 @@ async def analyze(payload: AnalyzeRequest):
 @app.get("/policy", response_model=PolicyResponse)
 async def policy():
     return POLICY
+
+
+@app.get("/", include_in_schema=False)
+async def root():
+    return RedirectResponse(url="/docs")
