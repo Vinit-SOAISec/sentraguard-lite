@@ -1,5 +1,12 @@
 # SentraGuard Lite — Guardrails Gateway Mini
 
+## 🔗 Live Demo
+
+- **UI:** https://sentraguard-lite.streamlit.app
+- **API Docs:** https://sentraguard-lite-api.onrender.com
+
+> Note: Free-tier hosting — first request may take 30-50 seconds to wake up if inactive.
+
 ## Project Summary
 
 SentraGuard Lite is a minimal GenAI guardrails gateway. It analyzes an
@@ -127,11 +134,8 @@ export API_BASE_URL=http://localhost:8000
 
 ## AI Tools Usage Disclosure
 
-Claude (Anthropic) was used to help scaffold this project — boilerplate
-FastAPI/Streamlit structure, regex pattern drafting for detectors, and
-Dockerfile templates. I reviewed, tested, and understand every part of the
-code, including the detection logic, scoring/threshold design, and API
-contract, and can explain and modify any part of it.
+I used Claude AI for initial code scaffolding - FastAPI endpoints, detector regex patterns, Streamlit UI, and test boilerplate. I personally handled the full local environment setup, WSL2/Docker troubleshooting on Windows, end-to-end testing of the API/UI/CLI/tests, and the Git/GitHub setup. I understand the detection logic, scoring design, and API contract and can explain or modify any part of it.
+
 
 ---
 
