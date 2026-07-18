@@ -11,6 +11,12 @@ from app.core.rag_injection_detector import detect_rag_injection
 BLOCK_THRESHOLD = 80
 TRANSFORM_THRESHOLD = 40
 
+# Bonus applied when 2+ distinct threat categories fire together.
+# A single strong signal is scored on its own merit (max), but a prompt
+# that combines multiple attack vectors (e.g. injection + PII + RAG) is
+# genuinely more dangerous than any one signal alone, so it gets bumped.
+COMPOUND_THREAT_BONUS = 20
+
 
 def analyze_request(prompt: str, context_docs: list):
     """
@@ -43,10 +49,18 @@ def analyze_request(prompt: str, context_docs: list):
         _, _, sanitized_doc_text = detect_and_redact_pii(doc_text)
         sanitized_context_docs.append({"id": doc_id, "text": sanitized_doc_text})
 
-    risk_score = min(max(scores) if scores else 0, 100)
+    base_score = max(scores) if scores else 0
 
     # Collect unique tags that actually fired
     risk_tags = sorted(set(r["tag"] for r in reasons))
+
+    # Compound threat bonus: if 2+ distinct categories fired, this prompt
+    # is attacking on multiple fronts at once, which is more dangerous
+    # than any single signal in isolation.
+    if len(risk_tags) >= 2:
+        risk_score = min(base_score + COMPOUND_THREAT_BONUS, 100)
+    else:
+        risk_score = base_score
 
     if risk_score >= BLOCK_THRESHOLD:
         decision = "block"
