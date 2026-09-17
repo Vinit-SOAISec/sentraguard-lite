@@ -1,28 +1,28 @@
-# SentraGuard Lite — Guardrails Gateway Mini
+# SentraGuard Lite - Guardrails Gateway Mini
 
 ## 🔗 Live Demo
 
 - **UI:** https://sentraguard-lite.streamlit.app
 - **API Docs:** https://sentraguard-lite-api.onrender.com
 
-> Note: Free-tier hosting — first request may take 30-50 seconds to wake up if inactive.
+> Note: Free-tier hosting - first request may take 30-50 seconds to wake up if inactive.
 
 ## Project Summary
 
 SentraGuard Lite is a minimal GenAI guardrails gateway. It analyzes an
 incoming prompt (plus optional retrieved context documents) and returns a
-policy decision — **allow / block / transform** — along with a risk score
+policy decision - **allow / block / transform** - along with a risk score
 (0–100), risk tags, and redacted/sanitized text.
 
 It detects three categories of risk, fully offline and deterministically:
 
-1. **Prompt injection / jailbreak** — heuristic phrase matching (e.g. "ignore
+1. **Prompt injection / jailbreak** - heuristic phrase matching (e.g. "ignore
    previous instructions", "reveal system prompt", "act as DAN").
-2. **PII** — detects and redacts emails and phone numbers.
-3. **RAG injection** — detects malicious instructions hidden inside
+2. **PII** - detects and redacts emails and phone numbers.
+3. **RAG injection** - detects malicious instructions hidden inside
    retrieved context documents (e.g. "SYSTEM:", "override policy").
 
-No external LLM API calls are required — everything runs locally.
+No external LLM API calls are required - everything runs locally.
 
 ---
 
@@ -151,10 +151,10 @@ I used Claude AI for initial code scaffolding - FastAPI endpoints, detector rege
 
 ### Tradeoffs
 - **Regex-based detection** is fast, deterministic, fully explainable, and
-  needs zero external dependencies/cost — but it can be bypassed by
+  needs zero external dependencies/cost - but it can be bypassed by
   paraphrasing, encoding (e.g. base64), or novel jailbreak phrasing that
   isn't in the pattern list.
-- **Redaction before scoring vs. after** — PII is redacted independently
+- **Redaction before scoring vs. after** - PII is redacted independently
   of the injection/RAG checks, so a prompt can trigger multiple tags
   simultaneously.
 - Using **max score** instead of **weighted sum** avoids one detector
@@ -162,12 +162,12 @@ I used Claude AI for initial code scaffolding - FastAPI endpoints, detector rege
   signals won't score as high as one strong signal.
 
 ### Limitations
-- No semantic/ML-based detection — only pattern matching, so heavily
+- No semantic/ML-based detection - only pattern matching, so heavily
   obfuscated or paraphrased attacks may be missed (false negatives).
 - Phone/email regex will have some false positives/negatives on edge-case
   formats (e.g. international numbers, obfuscated emails like `user (at)
   domain dot com`).
-- No persistence layer — every request is analyzed independently; no
+- No persistence layer - every request is analyzed independently; no
   history, no per-user/app rate limiting or trend analysis.
 - No authentication/authorization on the API endpoints (not in scope for
   this MVP, but required before any real deployment).
